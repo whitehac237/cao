@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tự động cập nhật dữ liệu từ yourfile.txt</title>
+    <style>
+        #data-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 300px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+    <h2 style="text-align: center;">Dữ liệu từ yourfile.txt</h2>
+    <div id="data-container">Đang tải dữ liệu...</div>
+
+    <script>
+        // Hàm đọc dữ liệu từ yourfile.txt
+        function fetchData() {
+            fetch('https://whitehac237.github.io/data/yourfile.txt')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Không thể đọc file');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('data-container').innerText = data;
+                })
+                .catch(error => {
+                    document.getElementById('data-container').innerText = 'Lỗi: ' + error.message;
+                });
+        }
+
+        // Gọi fetchData() khi trang được tải
+        fetchData();
+
+        // Tự động cập nhật dữ liệu mỗi 5 giây
+        setInterval(fetchData, 2000);
+    </script>
+
+</body>
+</html>
